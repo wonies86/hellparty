@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>헬파티</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#F2F5F9;--ink:#1A2238;--mute:#5B6579;--line:#D5DCE6;--acc:#2F5BFF;--stamp:#E8503A;--card:#fff;--hero:#1A2238;--onhero:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141F;--ink:#EEF1F7;--mute:#98A2B8;--line:#2A3247;--acc:#7C97FF;--stamp:#FF7A63;--card:#181E2E;--hero:#2A3556}}
+:root[data-theme="dark"]{--bg:#10141F;--ink:#EEF1F7;--mute:#98A2B8;--line:#2A3247;--acc:#7C97FF;--stamp:#FF7A63;--card:#181E2E;--hero:#2A3556}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "Noto Sans KR",system-ui,sans-serif}
+main{max-width:480px;margin:0 auto;padding:20px 18px 110px}
+h1,h2{margin:0;font-family:"Black Han Sans","Noto Sans KR",sans-serif;font-weight:400}
+h2{font-size:22px;margin-bottom:12px}
+section{margin-top:36px}
+.brand{font-size:36px;color:var(--acc)}.brand+.sub{margin:2px 0 0}
+.top{margin-top:24px;display:flex;align-items:flex-end;gap:10px}
+.big{font:400 84px/1 "Black Han Sans","Noto Sans KR",sans-serif;color:var(--stamp)}
+.top p{margin:0 0 10px;font-weight:700}
+.sub{color:var(--mute);font-size:14px;margin:4px 0 0}
+.today{background:var(--hero);color:var(--onhero);border-radius:20px;padding:20px;margin-top:20px}
+.today h2{color:var(--onhero)}
+.pick{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.18)}
+.pick b{display:block}.pick span{opacity:.75;font-size:14px}
+.pick a{display:block;color:var(--onhero);font-size:14px}
+.tag{font-size:13px;opacity:.8;white-space:nowrap}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 16px;min-height:44px}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.go{background:var(--stamp);color:#fff;font-weight:700;width:100%;margin-top:14px}
+.ghost{background:transparent;color:inherit;border:1px solid currentColor;width:100%;margin-top:8px}
+.done{margin-top:14px;font-weight:700}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.cal i{font-style:normal;font-size:12px;color:var(--mute)}
+.cal div{aspect-ratio:1;display:grid;place-items:center;font-size:13px;color:var(--mute);border-radius:50%}
+.cal .on{background:var(--stamp);color:#fff;font-weight:700;transform:rotate(-8deg)}
+.cal .now{outline:2px solid var(--acc);outline-offset:-2px;color:var(--ink)}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+label{display:block;font-size:13px;color:var(--mute)}
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:44px}
+.save{background:var(--acc);color:#fff;font-weight:700;margin-top:10px;width:100%}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+td,th{text-align:right;padding:8px 4px;border-bottom:1px solid var(--line);font-weight:400}
+th:first-child,td:first-child{text-align:left}
+.up{color:var(--stamp)}.dn{color:var(--acc)}
+ul{list-style:none;margin:14px 0 0;padding:0}
+span.chip{display:inline-block;padding:8px 14px;border-radius:12px}li .drow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;width:100%;background:transparent;color:var(--ink);padding:8px 0;min-height:44px;text-align:left;border-radius:8px;font-size:15px}.vbtn{display:inline-flex;align-items:center;background:var(--hero);color:var(--onhero)!important;border-radius:12px;padding:8px 14px!important;min-height:40px;font-weight:700;text-decoration:none}.pcard{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--card);margin-top:14px}.pcard label{margin-top:8px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.chip{background:var(--card);color:var(--ink);border:1px solid var(--line);padding:8px 14px;min-height:40px}.chip.sel{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:700}.info{flex-basis:100%;font-size:14px;color:var(--mute);line-height:1.5}.pick .tp{display:block}.quote{border-left:4px solid var(--stamp);padding:6px 0 6px 14px;margin-top:24px}.quote p{margin:0;font-size:18px;font-weight:700;line-height:1.5}.shorts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.shorts li{display:block;padding:0;border:0}.shot{position:relative;display:block;aspect-ratio:9/16;border-radius:16px;overflow:hidden;color:#fff;text-decoration:none;background-size:cover;background-position:center}.shot .ov{position:absolute;left:0;right:0;bottom:0;padding:32px 10px 10px;background:linear-gradient(transparent,rgba(0,0,0,.78));font-size:14px;line-height:1.35}.shot .ov small{display:block;opacity:.85;color:#fff}.shot .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.45);display:grid;place-items:center;font-size:18px}.shot .fv{position:absolute;top:8px;right:10px;font-size:18px}
+li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+li small{color:var(--mute)}
+li button{background:transparent;color:var(--mute);padding:6px 10px;min-height:36px}
+li a{color:var(--acc);font-size:14px;margin-left:auto;padding:0 10px}
+.add{display:grid;grid-template-columns:1fr 100px;gap:8px}
+.add button{grid-column:1/-1}
+.join{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.join button{grid-column:1/-1}.join .w{grid-column:1/-1}
+.crew{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.slot{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--card);min-height:112px;display:flex;flex-direction:column;gap:4px}
+.slot.me{border:2px solid var(--acc)}
+.slot.empty{border-style:dashed;color:var(--mute);align-items:center;justify-content:center;text-align:center;font-size:14px;background:transparent}
+.slot b{font-size:17px}
+.st{font-size:14px;color:var(--mute)}.st.ok{color:var(--stamp);font-weight:700}
+.toast{background:var(--hero);color:var(--onhero);border-radius:12px;padding:10px 14px;margin:12px 0 0;font-weight:700}
+li .yes{background:var(--acc);color:#fff}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;max-width:480px;margin:0 auto;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:transparent;color:var(--mute);font-size:12px;line-height:1.25;padding:8px 2px;border-radius:10px}
+nav button.cur{color:var(--acc);font-weight:700;background:var(--bg)}
+@media(prefers-reduced-motion:no-preference){.on{animation:st .35s ease-out}@keyframes st{from{transform:scale(1.6) rotate(-20deg);opacity:0}}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var KEY='inbody-routine-v1',PARTS=['가슴','등','하체','어깨','팔','복부','허리','코어','유산소'];
+var DEF=[['덤벨 프레스','가슴'],['밴드 로우','등'],['맨몸 스쿼트','하체'],['덤벨 숄더 프레스','어깨'],['플랭크','코어'],['줄넘기','유산소']];
+var KW=[['유산소',['줄넘기','러닝','런닝','트레드밀','사이클','싸이클','자전거','로잉','스텝','버피','점핑','조깅','걷기']],['어깨',['숄더','레터럴','사이드레이즈','오버헤드','밀리터리','페이스풀','업라이트']],['허리',['백익스텐션','하이퍼','슈퍼맨','굿모닝','허리']],['복부',['크런치','복근','싯업','윗몸','레그레이즈','바이시클','복부']],['코어',['플랭크','러시안','롤아웃','마운틴','버드독','코어']],['하체',['스쿼트','런지','레그','데드리프트','힙','카프','종아리','브릿지','하체']],['등',['로우','풀업','턱걸이','랫','풀다운','친업','등']],['팔',['컬','트라이셉','이두','삼두','킥백','해머']],['가슴',['벤치','푸시업','푸쉬업','팔굽','체스트','펙덱','플라이','딥스','프레스','가슴']]];
+var DEFINFO={'덤벨 프레스':['가슴(대흉근), 어깨 앞쪽, 삼두',['벤치에 누워 덤벨을 가슴 옆에 잡아요','팔꿈치를 펴며 덤벨을 위로 밀어 올려요','천천히 시작 위치로 내려요']],'밴드 로우':['등(광배근, 능형근), 이두',['밴드를 고정하고 앉아 양손으로 잡아요','견갑골을 모으며 팔꿈치를 뒤로 당겨요','천천히 풀어 주세요']],'맨몸 스쿼트':['허벅지 앞(대퇴사두), 엉덩이',['발을 어깨너비로 벌리고 서요','엉덩이를 뒤로 빼며 앉아요','무릎이 발끝을 넘지 않게 일어나요']],'덤벨 숄더 프레스':['어깨(삼각근), 삼두',['덤벨을 어깨 높이에서 잡아요','팔을 머리 위로 곧게 밀어 올려요','천천히 어깨 높이로 내려요']],'플랭크':['복부, 코어 전체, 허리',['팔꿈치를 어깨 아래에 두고 엎드려요','머리부터 발끝까지 일직선을 유지해요','숨을 쉬며 시간을 채워요']],'줄넘기':['종아리, 허벅지, 전신 유산소',['손목으로 줄을 돌려요','발끝으로 가볍게 뛰어요','일정한 리듬을 유지해요']]};
+var S=load();if(!S.vids)S.vids=[{id:'v1',url:'https://www.youtube.com/@muscletv111',title:'muscletv111',part:'전체',fav:false,last:''}];S.vids.forEach(function(v){v.title=v.title.replace(' (예시 채널)','')});if(!S.wt)S.wt=[];S.equip.forEach(function(e){if(!e.how&&DEFINFO[e.n]){e.m=DEFINFO[e.n][0];e.how=DEFINFO[e.n][1]}});
+function load(){try{var r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}
+return{equip:DEF.map(function(x){return{n:x[0],p:x[1],last:''}}),days:[],log:{},inbody:[],shuf:{}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function pad(n){return(n<10?'0':'')+n}
+function fmt(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function add(s,n){var a=s.split('-').map(Number);return fmt(new Date(a[0],a[1]-1,a[2]+n))}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML.replace(/"/g,'&quot;')}
+function yt(n){return'https://www.youtube.com/results?search_query='+encodeURIComponent(n+' 사용법')}
+function val(i){var e=document.getElementById(i);return e?e.value.trim():''}
+var T=fmt(new Date()),TAB='main',TABS=[['main','메인'],['today','오늘의 운동'],['stamp','스탬프'],['record','기록'],['video','영상'],['reco','추천']];
+var SOC='init',DB=null,UID=null,ME=null,CREW=[],INV=[],BUSY=false,MSG='',FN='',FK='';
+function M(n){return'\x01'+n+'\x01'}
+function nav(){return'<nav aria-label="메뉴">'+TABS.map(function(t){return'<button data-a="tab" data-t="'+t[0]+'"'+(t[0]===TAB?' class="cur" aria-current="page"':'')+'>'+t[1]+'</button>'}).join('')+'</nav>'}
+function dose(p){return p==='코어'?'3세트 × 40초':p==='유산소'?'5분':'3세트 × 12회'}
+function streak(){var d=S.days.indexOf(T)>-1?T:add(T,-1),c=0;while(S.days.indexOf(d)>-1){c++;d=add(d,-1)}return c}
+function picks(){
+ if(S.plan&&S.plan.d===T)return S.plan.items;
+ if(S.log[T])return S.log[T].map(function(n){return S.equip.filter(function(e){return e.n===n})[0]||{n:n,p:''}});
+ var l=S.equip.slice().sort(function(a,b){return a.last<b.last?-1:a.last>b.last?1:0});
+ if(!l.length)return[];
+ var o=(S.shuf[T]||0)%l.length,r=l.slice(o).concat(l.slice(0,o)),out=[],seen={};
+ r.forEach(function(x){if(!seen[x.p]&&out.length<3){seen[x.p]=1;out.push(x)}});
+ r.forEach(function(x){if(out.length<3&&out.indexOf(x)<0)out.push(x)});
+ return out}
+function delta(a,b,u){if(b==null)return'';var v=Math.round((a-b)*10)/10;return v===0?'<span>–</span>':'<span class="'+(v>0?'up':'dn')+'">'+(v>0?'+':'')+v+u+'</span>'}
+function guess(n){var s=n.replace(/\s/g,'').toLowerCase();for(var i=0;i<KW.length;i++)for(var j=0;j<KW[i][1].length;j++)if(s.indexOf(KW[i][1][j])>-1)return KW[i][0];return''}
+async function addEquip(b){
+ var n=val('en'),p=VP,hint=p,info=null;
+ if(!n){alert('운동기구 이름을 입력해 주세요.');return}
+ b.disabled=true;b.textContent='사용법 정리 중...';
+ try{var sm=await claude.use('sample');
+  if(sm){var r=await sm.json('운동기구 또는 운동 이름: '+n+'\n부위 힌트: '+(hint||'없음')+'\n다음 JSON으로만 답하세요. part는 '+PARTS.join(', ')+' 중 하나, muscles는 자극되는 주요 근육을 쉼표로 구분한 한 줄, steps는 사용법 3~4단계(각 40자 이내)예요.\n{"part":"","muscles":"","steps":["",""]}',{modelTier:'quick'});
+   if(r&&Array.isArray(r.steps)){info={m:String(r.muscles||'').slice(0,60),how:r.steps.slice(0,4).map(function(s){return String(s).slice(0,60)})};
+    if(p==='auto'&&!hint&&PARTS.indexOf(r.part)>-1)hint=r.part}}}catch(e){}
+ b.disabled=false;b.textContent='운동기구 추가';
+ p=p==='auto'?hint:p;
+ if(!p){alert('부위를 자동으로 찾지 못했어요. 부위를 직접 골라 주세요.');return}
+ var it={n:n,p:p,last:''};if(info){it.m=info.m;it.how=info.how}
+ S.equip.push(it);S.shuf[T]=0;save();render()}
+var PEND=null,PB=false,PMSG='';
+function shrink(file){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){var im=new Image();im.onerror=no;im.onload=function(){var s=Math.min(1,1024/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(function(b){b?ok(b):no()},'image/jpeg',0.82)};im.src=fr.result};fr.readAsDataURL(file)})}
+async function fromPhoto(file){
+ PB=true;PMSG='';PEND=null;render();
+ try{var blob=await shrink(file),sm=await claude.use('sample');
+  if(!sm)throw 0;var lim=await sm.limits();if(!lim.images)throw 0;
+  var r=await sm.json('사진 속 운동기구(또는 운동 장면)가 무엇인지 알아보세요. 한국 헬스장에서 흔히 부르는 이름을 쓰세요.\n다음 JSON으로만 답하세요. 알아볼 수 없으면 {"ok":false}만 답하세요. part는 '+PARTS.join(', ')+' 중 하나, muscles는 자극되는 주요 근육을 쉼표로 구분한 한 줄, steps는 사용법 3~4단계(각 40자 이내)예요.\n{"ok":true,"name":"","part":"","muscles":"","steps":["",""]}',{images:[blob],modelTier:'quick',cache:false});
+  if(r&&r.ok&&r.name&&Array.isArray(r.steps))PEND={n:String(r.name).slice(0,20),p:PARTS.indexOf(r.part)>-1?r.part:(guess(String(r.name))||PARTS[0]),m:String(r.muscles||'').slice(0,60),how:r.steps.slice(0,4).map(function(s){return String(s).slice(0,60)})};
+  else PMSG='사진에서 운동기구를 알아보지 못했어요. 기구 전체가 잘 보이게 다시 찍어 주세요.'
+ }catch(e){PMSG='사진으로 찾기를 지금 쓸 수 없어요. 이름을 직접 입력해 주세요.'}
+ PB=false;render()}
+function pendHtml(){
+ if(PB)return'<p class="sub">사진을 살펴보는 중...</p>';
+ var h=PMSG?'<p class="toast" role="status">'+esc(PMSG)+'</p>':'';
+ if(!PEND)return h;
+ return h+'<div class="pcard"><label for="pn">찾은 운동기구 이름 (고쳐 쓸 수 있어요)</label><input id="pn" maxlength="20" value="'+esc(PEND.n)+'"><label for="pp">부위</label><select id="pp">'+PARTS.map(function(p){return'<option'+(p===PEND.p?' selected':'')+'>'+p+'</option>'}).join('')+'</select><div class="info" style="margin-top:8px">자극 부위: <b>'+esc(PEND.m)+'</b>'+PEND.how.map(function(s,k){return'<div>'+(k+1)+'. '+esc(s)+'</div>'}).join('')+'</div><button class="save" data-a="pyes">이 운동기구 추가하기</button><button class="ghost" data-a="pno">취소</button></div>'}
+var VP='가슴',RD=null,DQ='',PB2=false;
+var SUG={'가슴':['푸시업','벤치 프레스','덤벨 플라이','딥스'],'등':['랫 풀다운','시티드 로우','풀업','원암 덤벨 로우'],'하체':['런지','레그 프레스','데드리프트','힙 브릿지'],'어깨':['사이드 레터럴 레이즈','숄더 프레스','프론트 레이즈','페이스 풀'],'팔':['덤벨 컬','트라이셉 익스텐션','해머 컬','킥백'],'복부':['크런치','레그 레이즈','바이시클 크런치','싯업'],'허리':['백 익스텐션','슈퍼맨','굿모닝','버드독'],'코어':['플랭크','사이드 플랭크','러시안 트위스트','마운틴 클라이머'],'유산소':['러닝','자전거','줄넘기','버피']};
+function sortIb(){S.inbody.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0})}
+function r1(x){return Math.round(x*10)/10}
+function advise(i){
+ var r=S.inbody[i],q=S.inbody[i-1],f=[],n=[];
+ if(!q){return{f:['가슴','등','하체'],n:['첫 기록이라 이전과 비교할 수 없어요. 다음 기록부터 변화에 맞춰 추천해 드려요.','우선 큰 근육 위주로 전신 균형 운동을 추천해요.']}}
+ var dm=r1(r.m-q.m),df=r1(r.f-q.f);
+ if(dm<0){f.push('하체','등','가슴');n.push('골격근량이 줄었어요. 큰 근육 근력운동을 늘려 보세요.')}
+ else if(dm===0){f.push('하체','등');n.push('골격근량이 그대로예요. 근력운동 강도를 조금 올려 보세요.')}
+ else n.push('골격근량이 늘었어요. 지금 운동을 이어가세요.');
+ if(df>0){f.push('유산소','복부');n.push('체지방률이 올랐어요. 유산소와 복부 운동 비중을 늘려 보세요.')}
+ else if(df<0)n.push('체지방률이 줄었어요. 좋은 흐름이에요.');
+ else n.push('체지방률이 그대로예요.');
+ if(!f.length){f.push('코어','어깨');n.push('고르게 좋아지고 있어요. 약한 부위나 코어를 보강해 보세요.')}
+ return{f:f.filter(function(x,k){return f.indexOf(x)===k}).slice(0,4),n:n}}
+function focusOf(i){var r=S.inbody[i];return r.ai&&r.ai.focus&&r.ai.focus.length?r.ai.focus:advise(i).f}
+async function analyze(d){
+ var i=S.inbody.findIndex(function(r){return r.d===d});if(i<0)return;
+ var r=S.inbody[i],q=S.inbody[i-1];PB2=true;render();
+ try{var sm=await claude.use('sample');if(!sm)throw 0;
+  var x=await sm.json('인바디 기록(체중 kg, 골격근량 kg, 체지방률 %): '+r.d+' '+r.w+', '+r.m+', '+r.f+(q?'\n이전 기록: '+q.d+' '+q.w+', '+q.m+', '+q.f:'\n이전 기록 없음')+'\n성별과 키는 모릅니다. 이 수치와 변화만으로 앞으로 주로 더 해야 할 운동 부위를 '+PARTS.join(', ')+' 중에서 최대 3개 고르고, 이유를 두 문장 이내로, 실천 팁을 한 문장으로 알려 주세요. 진단이나 치료 조언은 하지 마세요. JSON으로만 답하세요.\n{"focus":["",""],"why":"","tip":""}',{modelTier:'quick',cache:false});
+  var fo=(x&&Array.isArray(x.focus)?x.focus:[]).filter(function(p){return PARTS.indexOf(p)>-1}).slice(0,3);
+  if(fo.length&&x.why)r.ai={focus:fo,why:String(x.why).slice(0,200),tip:String(x.tip||'').slice(0,100)};else alert('AI 분석을 가져오지 못했어요. 잠시 후 다시 시도해 주세요.')
+ }catch(e){alert('AI 분석을 지금 쓸 수 없어요.')}
+ PB2=false;save();render()}
+function detHtml(i){
+ var r=S.inbody[i],q=S.inbody[i-1],a=advise(i),fo=focusOf(i),h='<section><button class="ghost" data-a="rb" style="margin:0 0 14px">← 목록으로</button><h2>'+r.d+' 인바디</h2><table><tr><th>항목</th><th>수치</th><th>이전 대비</th></tr>';
+ [['체중 (kg)','w'],['골격근량 (kg)','m'],['체지방률 (%)','f']].forEach(function(x){h+='<tr><td>'+x[0]+'</td><td>'+r[x[1]]+'</td><td>'+(q?delta(r[x[1]],q[x[1]],''):'–')+'</td></tr>'});
+ h+='</table><h2 style="margin-top:28px;font-size:18px">이 날 기준 더 해야 할 운동</h2><div class="chips">'+fo.map(function(p){return'<span class="chip sel">'+p+'</span>'}).join('')+'</div>'+a.n.map(function(t){return'<p class="sub" style="font-size:15px;color:var(--ink)">'+esc(t)+'</p>'}).join('');
+ if(r.ai)h+='<div class="pcard"><b>AI 분석</b><p style="margin:6px 0">'+esc(r.ai.why)+'</p>'+(r.ai.tip?'<p class="sub">'+esc(r.ai.tip)+'</p>':'')+'</div>';
+ h+='<button class="save" data-a="apply" data-d="'+r.d+'">이 부위로 이번 주 설정하기</button><button class="ghost" data-a="ai" data-d="'+r.d+'"'+(PB2?' disabled':'')+'>'+(PB2?'분석하는 중...':r.ai?'AI로 다시 분석하기':'AI로 자세히 분석하기')+'</button><button class="ghost" data-a="rdel" data-d="'+r.d+'">'+(DQ===r.d?'정말 삭제할까요? 한 번 더 누르세요':'이 기록 삭제')+'</button><p class="sub">인바디 수치만으로 본 참고용 추천이에요. 건강 상태가 걱정되면 전문가와 상담해 주세요.</p></section>';
+ return h}
+function recHtml(){
+ if(RD){var i=S.inbody.findIndex(function(r){return r.d===RD});if(i>-1)return detHtml(i);RD=null}
+ var h='<section><h2>인바디 기록</h2><div class="row"><div><label for="w">체중 (kg)</label><input id="w" type="number" step="0.1" inputmode="decimal"></div><div><label for="m">골격근량 (kg)</label><input id="m" type="number" step="0.1" inputmode="decimal"></div><div><label for="f">체지방률 (%)</label><input id="f" type="number" step="0.1" inputmode="decimal"></div></div><label for="bd" style="margin-top:10px">측정 날짜</label><input id="bd" type="date" value="'+T+'" max="'+T+'"><button class="save" data-a="ib">인바디 저장</button>';
+ if(!S.inbody.length)return h+'<p class="sub">기록을 저장하면 날짜별로 어떤 운동을 더 해야 할지 볼 수 있어요.</p></section>';
+ h+='<p class="sub" style="margin-top:16px">날짜를 누르면 그날 기준으로 더 해야 할 운동을 볼 수 있어요.</p><ul>';
+ S.inbody.slice().reverse().forEach(function(r){h+='<li><button class="drow" data-a="rd" data-d="'+r.d+'"><span><b>'+r.d.slice(5)+'</b></span><span>체중 '+r.w+' 골격근 '+r.m+' 체지방 '+r.f+'%</span></button></li>'});
+ return h+'</ul></section>'}
+function vidHtml(){
+ var h='<section><h2>운동기구와 사용법 영상</h2><div class="chips">';
+ PARTS.forEach(function(p){var c=S.equip.filter(function(e){return e.p===p}).length;h+='<button class="chip'+(p===VP?' sel':'')+'" data-a="vp" data-p="'+p+'" aria-pressed="'+(p===VP)+'">'+p+(c?' '+c:'')+'</button>'});
+ h+='</div><h2 style="margin-top:24px;font-size:18px">'+VP+' 운동 추가</h2><button class="save" data-a="pick"'+(PB?' disabled':'')+'>📷 사진으로 운동기구 찾기</button><input id="ph" type="file" accept="image/*" hidden><p class="sub">이름을 모르는 기구는 사진을 찍거나 골라 주세요. AI가 알아봐 줘요.</p>'+pendHtml();
+ var have=S.equip.map(function(e){return e.n}),bw=(BW[VP]||[]).filter(function(x){return have.indexOf(x)<0}),sg=SUG[VP].concat(MORE[VP]||[]).filter(function(x){return have.indexOf(x)<0});
+ [['맨손 운동 (기구 없이 가능)',bw],['인기 운동 (헬스장, 덤벨 등)',sg]].forEach(function(g){if(g[1].length){h+='<label style="margin-top:14px">'+g[0]+', 눌러서 추가</label><div class="chips">';g[1].forEach(function(x){h+='<button class="chip" data-a="sug" data-n="'+esc(x)+'">+ '+esc(x)+'</button>'});h+='</div>'}});
+ h+='<div class="add" style="margin-top:16px;grid-template-columns:1fr"><div><label for="en">직접 입력</label><input id="en" maxlength="20" placeholder="운동기구 또는 운동 이름"></div><button class="save" data-a="eq">'+VP+' 운동기구 추가</button></div><ul>';
+ var L=S.equip.map(function(e,i){return[e,i]}).filter(function(x){return x[0].p===VP});
+ if(!L.length)h+='<li><span class="sub">등록된 '+VP+' 운동이 없어요. 위에서 추가해 보세요.</span></li>';
+ L.forEach(function(x){var e=x[0],i=x[1];h+='<li><span>'+esc(e.n)+'</span><a class="vbtn" href="'+yt(e.n)+'" target="_blank" rel="noopener">▶ 영상 보기</a><button data-a="rm" data-i="'+i+'" aria-label="'+esc(e.n)+' 삭제">삭제</button>'+(e.how?'<div class="info">자극 부위: <b>'+esc(e.m||e.p)+'</b>'+e.how.map(function(s,k){return'<div>'+(k+1)+'. '+esc(s)+'</div>'}).join('')+'</div>':'<div class="info">자극 부위와 사용법은 영상 보기 버튼으로 확인해 주세요.</div>')+'</li>'});
+ return h+'</ul></section>'}
+var RP='전체',RM=false,VQ='';
+function ytOk(u){try{var x=new URL(u);return x.protocol==='https:'&&['www.youtube.com','youtube.com','m.youtube.com','youtu.be'].indexOf(x.hostname)>-1}catch(e){return false}}
+function ytName(u){try{var p=new URL(u).pathname.split('/').filter(Boolean)[0]||'';return p.charAt(0)==='@'?p.slice(1):'유튜브 영상'}catch(e){return'유튜브 영상'}}
+function vmove(i,d){var v=S.vids,j=i+d;while(j>=0&&j<v.length&&RP!=='전체'&&v[j].part!==RP)j+=d;if(j<0||j>=v.length)return;var t=v[i];v[i]=v[j];v[j]=t}
+function partOpts(sel){return['전체'].concat(PARTS).map(function(p){return'<option'+(p===sel?' selected':'')+'>'+p+'</option>'}).join('')}
+function recoAdd(){return'<div class="pcard"><label for="vu">유튜브 주소 (채널 또는 영상)</label><input id="vu" type="url" inputmode="url" placeholder="https://www.youtube.com/@muscletv111"><label for="vt">이름 (비우면 자동으로 정해요)</label><input id="vt" maxlength="40"><label for="vq">부위</label><select id="vq">'+partOpts(RP)+'</select><button class="save" data-a="vadd">목록에 추가</button></div>'}
+function recoHtml(){
+ var h='<section><h2>추천 영상</h2><p class="sub">운동 유튜브 채널과 영상을 모아 두고 다시 볼 수 있어요. 영상은 유튜브에서 열려요.</p><input id="vf" type="file" accept="image/*" hidden><div class="chips" role="group" aria-label="화면 선택"><button class="chip'+(RM?'':' sel')+'" data-a="rmode" data-m="0" aria-pressed="'+!RM+'">보기</button><button class="chip'+(RM?' sel':'')+'" data-a="rmode" data-m="1" aria-pressed="'+RM+'">목록 관리</button></div>';
+ h+='<div class="chips" style="margin-top:14px" role="group" aria-label="부위 선택">'+['전체'].concat(PARTS).map(function(p){return'<button class="chip'+(p===RP?' sel':'')+'" data-a="rp" data-p="'+p+'" aria-pressed="'+(p===RP)+'">'+p+'</button>'}).join('')+'</div>';
+ if(RM)h+=recoAdd();
+ var L=S.vids.map(function(v,i){return[v,i]}).filter(function(x){return RP==='전체'||x[0].part===RP});
+ if(!RM)L.sort(function(a,b){return(b[0].fav?1:0)-(a[0].fav?1:0)});
+ h+='<ul'+(RM?'':' class="shorts"')+'>';
+ if(!L.length)h+='<li style="grid-column:1/-1"><span class="sub">'+(RP==='전체'?'목록이 비어 있어요.':RP+' 영상이 없어요.')+' 목록 관리에서 추가해 보세요.</span></li>';
+ L.forEach(function(x){var v=x[0],i=x[1];
+  if(!RM)h+='<li><a class="shot" data-v="'+esc(v.id)+'" href="'+esc(v.url)+'" target="_blank" rel="noopener" style="'+(v.img?'background-image:url('+v.img+')':'background:linear-gradient(160deg,hsl('+hue(v.id)+' 55% 38%),hsl('+((hue(v.id)+40)%360)+' 60% 22%))')+'" aria-label="'+esc(v.title)+' 유튜브에서 보기"><span class="play" aria-hidden="true">▶</span>'+(v.fav?'<span class="fv">★</span>':'')+'<span class="ov"><b>'+esc(v.title)+'</b><small>'+esc(v.part)+(v.last?' / 시청 '+v.last.slice(5):'')+'</small></span></a></li>';
+  else h+='<li><div style="flex-basis:100%"><label for="t'+i+'">이름</label><input id="t'+i+'" data-vt="'+esc(v.id)+'" maxlength="40" value="'+esc(v.title)+'"></div><select data-vq="'+esc(v.id)+'" aria-label="부위" style="flex:1">'+partOpts(v.part)+'</select><button data-a="vimg" data-i="'+i+'">'+(v.img?'🖼 변경':'🖼 이미지')+'</button>'+(v.img?'<button data-a="vimgx" data-i="'+i+'" aria-label="이미지 삭제">이미지 삭제</button>':'')+'<button data-a="vfav" data-i="'+i+'" aria-label="즐겨찾기">'+(v.fav?'★':'☆')+'</button><button data-a="vup" data-i="'+i+'" aria-label="위로">↑</button><button data-a="vdn" data-i="'+i+'" aria-label="아래로">↓</button><button data-a="vdel" data-i="'+i+'">'+(VQ===v.id?'한 번 더 눌러 삭제':'삭제')+'</button></li>'});
+ return h+'</ul></section>'}
+var QUOTES=['오늘 흘린 땀은 내일의 나를 만든다.','시작이 반이고, 꾸준함이 나머지 반이다.','어제의 나보다 한 걸음만 더 가면 충분하다.','힘들다는 건 지금 성장하고 있다는 신호다.','천천히 가도 멈추지 않으면 반드시 도착한다.','완벽한 날을 기다리지 말고 오늘 시작하자.','작은 습관이 큰 변화를 만든다.','포기하고 싶을 때가 한 세트 더 할 때다.','몸은 약속을 지킨 만큼 보답한다.','오늘의 한 번이 내일의 열 번을 만든다.','비교는 어제의 나하고만 하자.','넘어져도 괜찮다. 다시 일어나면 된다.','하기 싫은 날 움직인 사람이 결국 이긴다.','건강은 가장 오래 가는 선물이다.','오늘도 나와의 약속을 지켰다는 사실이 힘이 된다.','느려도 괜찮다. 방향만 맞으면 된다.','땀은 거짓말을 하지 않는다.','지금 아픈 근육이 내일의 든든한 힘이 된다.','한 번 더, 딱 한 번만 더.','오늘의 노력은 반드시 어딘가에 쌓이고 있다.','잘하려 하지 말고 계속하려고 하자.','가장 좋은 운동은 오늘 하는 운동이다.','웃으며 운동하는 사람이 오래 간다.','운동하고 먹는 한 끼는 두 배로 맛있다.','내 몸을 아끼는 일이 가장 멋진 자기 응원이다.','작은 성공을 쌓아 큰 자신감을 만든다.','힘든 하루도 운동 한 번이면 가벼워진다.','오늘 찍은 스탬프 하나가 한 달의 기록이 된다.','끝까지 해낸 나에게 박수를 보내자.','내일의 나는 오늘의 나에게 고마워할 거야.'];
+function quoteHtml(){var a=T.split('-').map(Number),n=Math.floor(Date.UTC(a[0],a[1]-1,a[2])/86400000);return'<div class="quote"><p>“'+esc(QUOTES[n%QUOTES.length])+'”</p><small class="sub">오늘의 한마디</small></div>'}
+function hue(s){var x=0;for(var i=0;i<s.length;i++)x=(x*31+s.charCodeAt(i))%360;return x}
+function shrinkURL(file,mx){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){var im=new Image();im.onerror=no;im.onload=function(){var s=Math.min(1,mx/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',0.7))};im.src=fr.result};fr.readAsDataURL(file)})}
+var VIMG=-1,RS='ib',WM=T.slice(0,7),WQ='';
+var BW={'가슴':['와이드 푸시업','인클라인 푸시업','다이아몬드 푸시업','힌두 푸시업'],'등':['리버스 스노우 엔젤','인버티드 로우','견갑골 모으기','와이퍼 스트레칭'],'하체':['맨몸 스쿼트','와이드 스쿼트','점프 스쿼트','월 싯','불가리안 스플릿 스쿼트'],'어깨':['파이크 푸시업','벽 핸드스탠드 홀드','암 서클','숄더 탭'],'팔':['벤치 딥스','클로즈 그립 푸시업','아이소메트릭 컬','플랭크 업다운'],'복부':['리버스 크런치','플러터 킥','V업','시저 킥'],'허리':['코브라 스트레칭','브릿지 홀드','캣 카우','힙 힌지'],'코어':['데드버그','할로우 홀드','플랭크 잭','베어 크롤'],'유산소':['제자리 달리기','하이니','점핑 잭','스케이터 점프']};
+var MORE={'가슴':['인클라인 덤벨 프레스','케이블 크로스오버','펙덱 플라이','체스트 프레스 머신'],'등':['바벨 로우','티바 로우','어시스트 풀업','스트레이트 암 풀다운'],'하체':['바벨 스쿼트','레그 익스텐션','레그 컬','카프 레이즈'],'어깨':['아놀드 프레스','리어 델트 플라이','업라이트 로우','케이블 레터럴 레이즈'],'팔':['바벨 컬','케이블 푸시다운','스컬 크러셔','프리처 컬'],'복부':['케이블 크런치','행잉 레그 레이즈','앱 롤아웃','디클라인 싯업'],'허리':['하이퍼 익스텐션','루마니안 데드리프트','케이블 풀스루','리버스 하이퍼'],'코어':['케이블 우드초퍼','행잉 니 레이즈','팰로프 프레스','짐볼 플랭크'],'유산소':['로잉머신','스텝퍼','트레드밀 인터벌','사이클 인터벌']};
+function wtSummary(list,ym){
+ var ex=S.days.filter(function(x){return x.slice(0,7)===ym}).length;
+ if(!list.length)return'<p class="sub">이 달에는 체중 기록이 없어요. 운동한 날은 '+ex+'일이에요.</p>';
+ var f=list[0],l=list[list.length-1],ws=list.map(function(e){return e.w}),avg=r1(ws.reduce(function(a,b){return a+b},0)/ws.length),mn=Math.min.apply(null,ws),mx=Math.max.apply(null,ws),dl=r1(l.w-f.w);
+ var msg=list.length<2?'기록이 하나뿐이라 변화는 아직 알 수 없어요.':dl<0?'이 달에 체중이 '+(-dl)+'kg 줄었어요.':dl>0?'이 달에 체중이 '+dl+'kg 늘었어요.':'이 달 체중이 그대로였어요.';
+ return'<div class="pcard"><b>'+esc(msg)+'</b><p class="sub" style="margin-top:6px">'+list.length+'일 기록, 평균 '+avg+'kg. 처음 '+f.w+'kg('+f.d.slice(5)+') → 마지막 '+l.w+'kg('+l.d.slice(5)+'). 가장 낮은 날 '+mn+'kg, 가장 높은 날 '+mx+'kg. 이 달 운동한 날은 '+ex+'일이에요.</p></div>'}
+function wtChart(list,ym){
+ if(list.length<2)return'<p class="sub" style="margin-top:12px">체중을 이 달에 2번 이상 기록하면 그래프가 나와요.</p>';
+ var nd=new Date(+ym.slice(0,4),+ym.slice(5),0).getDate(),W=320,H=180,L=36,R=12,Tp=14,B=34;
+ var ws=list.map(function(e){return e.w}),lo=Math.min.apply(null,ws),hi=Math.max.apply(null,ws),pd=Math.max((hi-lo)*0.25,0.5);lo-=pd;hi+=pd;
+ function X(d){return L+(W-L-R)*(d-1)/Math.max(nd-1,1)}
+ function Y(v){return Tp+(H-Tp-B)*(1-(v-lo)/(hi-lo))}
+ var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+ym+' 체중 변화 그래프" style="width:100%;height:auto;margin-top:12px">';
+ [hi,(hi+lo)/2,lo].forEach(function(v){var y=Y(v);s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" style="stroke:var(--line)"/><text x="'+(L-4)+'" y="'+(y+3)+'" text-anchor="end" font-size="10" style="fill:var(--mute)">'+r1(v)+'</text>'});
+ [1,8,15,22,nd].forEach(function(d){s+='<text x="'+X(d)+'" y="'+(H-B+14)+'" text-anchor="middle" font-size="10" style="fill:var(--mute)">'+d+'</text>'});
+ S.days.forEach(function(x){if(x.slice(0,7)===ym)s+='<circle cx="'+X(+x.slice(8))+'" cy="'+(H-8)+'" r="3.5" style="fill:var(--stamp)"/>'});
+ s+='<polyline fill="none" stroke-width="2" stroke-linejoin="round" points="'+list.map(function(e){return X(+e.d.slice(8))+','+Y(e.w)}).join(' ')+'" style="stroke:var(--acc)"/>';
+ list.forEach(function(e){s+='<circle cx="'+X(+e.d.slice(8))+'" cy="'+Y(e.w)+'" r="3.5" style="fill:var(--acc)"/>'});
+ return s+'</svg><p class="sub">파란 선은 체중이고, 아래 붉은 점은 운동한 날이에요.</p>'}
+function wtHtml(){
+ var cur=T.slice(0,7),ym=WM,list=S.wt.filter(function(e){return e.d.slice(0,7)===ym});
+ var h='<section><h2>체중 기록</h2><div class="row" style="grid-template-columns:1fr 1fr"><div><label for="wd">날짜</label><input id="wd" type="date" value="'+T+'" max="'+T+'"></div><div><label for="wv">체중 (kg)</label><input id="wv" type="number" step="0.1" inputmode="decimal"></div></div><button class="save" data-a="wsave">체중 저장</button>';
+ h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-top:28px"><button class="chip" data-a="wprev" aria-label="이전 달">◀</button><h2 style="margin:0;font-size:18px">'+ym.slice(0,4)+'년 '+(+ym.slice(5))+'월</h2><button class="chip" data-a="wnext" aria-label="다음 달"'+(ym>=cur?' disabled':'')+'>▶</button></div>';
+ h+=wtChart(list,ym)+wtSummary(list,ym);
+ if(list.length){h+='<ul>';list.slice().reverse().forEach(function(e){h+='<li><span>'+e.d.slice(5)+' <b>'+e.w+' kg</b></span><button data-a="wdel" data-d="'+e.d+'">'+(WQ===e.d?'한 번 더 눌러 삭제':'삭제')+'</button></li>'});h+='</ul>'}
+ return h+'</section>'}
+function recWrap(){
+ if(RS==='ib'&&RD)return recHtml();
+ return'<section style="margin-top:20px"><div class="chips" role="group" aria-label="기록 종류"><button class="chip'+(RS==='ib'?' sel':'')+'" data-a="rs" data-s="ib" aria-pressed="'+(RS==='ib')+'">인바디</button><button class="chip'+(RS==='wt'?' sel':'')+'" data-a="rs" data-s="wt" aria-pressed="'+(RS==='wt')+'">체중</button></div></section>'+(RS==='wt'?wtHtml():recHtml())}
+function wkKey(){var d=new Date();return add(T,-((d.getDay()+6)%7))}
+function PREF(){var p=S.pref;if(!p||p.wk!==wkKey()){p=S.pref={wk:wkKey(),focus:[],level:(p&&p.level)||'보통'}}return p}
+var LV={'가볍게':[2,'10회',60,'5분',30],'보통':[3,'12회',45,'10분',40],'강하게':[4,'15회',30,'15분',60]};
+function lvDose(lv,p){var v=LV[lv]||LV['보통'];return p==='유산소'?v[3]:p==='코어'?v[0]+'세트 × '+v[4]+'초':v[0]+'세트 × '+v[1]+' (휴식 '+v[2]+'초)'}
+function localPlan(pool,lv){return pool.slice().sort(function(a,b){return a.last<b.last?-1:a.last>b.last?1:0}).slice(0,4).map(function(e){return{n:e.n,p:e.p,dose:lvDose(lv,e.p),tip:''}})}
+async function makeRoutine(b){
+ var pf=PREF();
+ if(S.log[T]){alert('오늘 운동은 이미 완료했어요. 내일 다시 만들어 주세요.');return}
+ if(!pf.focus.length){alert('이번 주에 주로 할 운동 부위를 하나 이상 골라 주세요.');return}
+ var pool=S.equip.filter(function(e){return pf.focus.indexOf(e.p)>-1});
+ if(!pool.length){alert('선택한 부위에 등록된 운동기구가 없어요. 영상 탭에서 추가해 주세요.');return}
+ b.disabled=true;b.textContent='루틴 만드는 중...';
+ var items=null;
+ try{var sm=await claude.use('sample');
+  if(sm){var r=await sm.json('등록된 운동기구 목록: '+pool.map(function(e){return e.n+'('+e.p+')'}).join(', ')+'\n이번 주 주로 할 운동: '+pf.focus.join(', ')+'\n강도: '+pf.level+'\n이 목록에 있는 운동기구만 사용해서 오늘의 운동 루틴을 3~5개로 구성하세요. n은 목록의 이름과 정확히 같아야 해요. 강도에 맞게 sets(세트 수), reps(횟수 또는 시간), rest(휴식 초), tip(자세 팁 한 줄, 30자 이내)을 정하세요. JSON으로만 답하세요.\n{"items":[{"n":"","sets":3,"reps":"12회","rest":45,"tip":""}]}',{modelTier:'quick',cache:false});
+   if(r&&Array.isArray(r.items))items=r.items.map(function(x){var e=pool.filter(function(q){return q.n===x.n})[0];if(!e)return null;var s=Math.min(Math.max(+x.sets||3,1),6),rest=+x.rest||0;return{n:e.n,p:e.p,dose:s+'세트 × '+String(x.reps||'12회').slice(0,12)+(rest?' (휴식 '+rest+'초)':''),tip:String(x.tip||'').slice(0,40)}}).filter(Boolean).slice(0,5)}}catch(e){}
+ if(!items||!items.length)items=localPlan(pool,pf.level);
+ S.plan={d:T,items:items};save();render()}
+function planHtml(){
+ var pf=PREF(),h='<section><h2>이번 주 운동 설정</h2><label>주로 할 운동 (여러 개 선택)</label><div class="chips">';
+ PARTS.forEach(function(p){var on=pf.focus.indexOf(p)>-1;h+='<button class="chip'+(on?' sel':'')+'" data-a="foc" data-p="'+p+'" aria-pressed="'+on+'">'+p+'</button>'});
+ h+='</div><label style="margin-top:14px">강도</label><div class="chips">';
+ ['가볍게','보통','강하게'].forEach(function(l){var on=pf.level===l;h+='<button class="chip'+(on?' sel':'')+'" data-a="lvl" data-l="'+l+'" aria-pressed="'+on+'">'+l+'</button>'});
+ return h+'</div><button class="save" data-a="plan">'+(S.plan&&S.plan.d===T?'AI 루틴 다시 만들기':'AI로 오늘 루틴 만들기')+'</button><p class="sub">등록한 운동기구 안에서만 루틴을 짜요.</p></section>'}
+/* 친구 기능: 회원가입 + 회원번호 초대 */
+async function initSocial(){
+ try{var u=await claude.use('user'),d=await claude.use('db');if(!u||!d)throw 0;
+  UID=await u.id();if(!UID)throw 0;DB=d;
+  var s=null;try{s=await DB.doc('members/'+UID).get()}catch(e){}
+  if(s&&s.exists){var x=s.data();ME={no:x.no,nick:x.nick,host:x.host||UID};SOC='ready';await loadSocial()}
+  else SOC='ready'
+ }catch(e){SOC='off'}
+ if(TAB==='main')render()}
+async function loadSocial(){
+ try{var a=await DB.collection('members').where('host','==',ME.host).get();
+  CREW=a.docs.map(function(d){var x=d.data();return{uid:d.id,nick:x.nick,done:x.done}}).sort(function(p,q){return(q.uid===UID)-(p.uid===UID)}).slice(0,4);
+  var b=await DB.collection('invites').where('to','==',UID).get();
+  INV=b.docs.filter(function(d){return d.data().status==='pending'}).map(function(d){var x=d.data();return{id:d.id,nick:x.fromNick,host:x.host}})
+ }catch(e){MSG='친구 정보를 불러오지 못했어요.'}
+ if(TAB==='main')render()}
+async function signUp(){
+ var nm=val('sn').slice(0,10),nk=val('sk').slice(0,8);FN=nm;FK=nk;
+ if(!nm||!nk){alert('이름과 별명을 모두 입력해 주세요.');return}
+ BUSY=true;MSG='';render();
+ try{var no='';
+  for(var i=0;i<6&&!no;i++){var c=String(Math.floor(100000+Math.random()*900000));var q=await DB.collection('members').where('no','==',c).limit(1).get();if(q.empty)no=c}
+  if(!no)throw 0;
+  await DB.collection('data/users/'+UID).doc('profile').set({name:nm,nick:nk,no:no});
+  await DB.doc('members/'+UID).set({no:no,nick:nk,host:UID,done:S.days.indexOf(T)>-1?T:''});
+  ME={no:no,nick:nk,host:UID};await loadSocial()
+ }catch(e){MSG='가입하지 못했어요. 잠시 후 다시 시도해 주세요.'}
+ BUSY=false;render()}
+async function sendInvite(){
+ var no=val('fn');
+ if(!/^\d{6}$/.test(no)){alert('회원번호 6자리 숫자를 입력해 주세요.');return}
+ if(no===ME.no){alert('내 회원번호예요.');return}
+ if(CREW.length>=4){MSG='함께 운동은 최대 4명까지예요.';render();return}
+ BUSY=true;MSG='';render();
+ try{var q=await DB.collection('members').where('no','==',no).limit(1).get();
+  if(q.empty)MSG='해당 회원번호를 찾지 못했어요.';
+  else{var t=q.docs[0].id;await DB.doc('invites/'+t+'_'+UID).set({from:UID,fromNick:ME.nick,to:t,host:ME.host,status:'pending'});MSG='초대를 보냈어요. 친구가 수락하면 함께 운동 목록에 나타나요.'}
+ }catch(e){MSG='초대를 보내지 못했어요.'}
+ BUSY=false;render()}
+async function respond(id,ok){
+ var v=INV.filter(function(x){return x.id===id})[0];if(!v)return;
+ try{if(ok){var q=await DB.collection('members').where('host','==',v.host).get();
+   if(q.size>=4){alert('이 방은 이미 4명이 모였어요.');return}
+   await DB.doc('members/'+UID).update({host:v.host});ME.host=v.host}
+  await DB.doc('invites/'+id).update({status:ok?'accepted':'declined'})
+ }catch(e){MSG='처리하지 못했어요.'}
+ await loadSocial()}
+async function leaveCrew(){try{await DB.doc('members/'+UID).update({host:UID});ME.host=UID}catch(e){MSG='나가지 못했어요.'}await loadSocial()}
+function pushMe(){if(DB&&ME)DB.doc('members/'+UID).update({done:S.days.indexOf(T)>-1?T:''}).catch(function(){})}
+function crew(){
+ var h='<div class="crew">';
+ for(var i=0;i<4;i++){var p=CREW[i];
+  if(!p){h+='<div class="slot empty">친구를 기다리는 중</div>';continue}
+  var me=p.uid===UID,ok=p.done===T;
+  h+='<div class="slot'+(me?' me':'')+'"><b>'+esc(String(p.nick||'').slice(0,8))+(me?' (나)':'')+'</b><div class="st'+(ok?' ok':'')+'">'+(ok?'오늘 운동 완료':'아직 운동 전')+'</div></div>'}
+ return h+'</div>'}
+function mainHtml(){
+ var h='<section><h2>함께 운동</h2>';
+ if(SOC==='init')return h+'<p class="sub">불러오는 중...</p></section>';
+ if(SOC==='off')return h+'<p class="sub">친구 기능을 지금 쓸 수 없어요. claude.ai에 로그인한 상태에서 이 페이지에 접근 권한이 있어야 해요.</p></section>';
+ if(!ME){
+  h+='<p class="sub">가입하면 회원번호가 자동으로 발급돼요. 이름은 나만 볼 수 있고, 친구에게는 별명과 회원번호만 보여요.</p><div class="join"><div><label for="sn">이름</label><input id="sn" maxlength="10" value="'+esc(FN)+'"></div><div><label for="sk">별명</label><input id="sk" maxlength="8" value="'+esc(FK)+'"></div><button class="save" data-a="signup"'+(BUSY?' disabled':'')+'>'+(BUSY?'가입하는 중...':'가입하기')+'</button></div>';
+  if(MSG)h+='<p class="toast" role="status">'+esc(MSG)+'</p>';
+  return h+'</section>'}
+ h+='<p class="sub">내 별명 <b>'+esc(ME.nick)+'</b>, 회원번호 <b>'+esc(ME.no)+'</b>. 친구에게 회원번호를 알려주세요.</p>';
+ if(MSG)h+='<p class="toast" role="status">'+esc(MSG)+'</p>';
+ if(INV.length){h+='<ul>';INV.forEach(function(x){h+='<li><span>'+esc(String(x.nick||'').slice(0,8))+'님이 함께 운동하자고 해요</span><span><button class="yes" data-a="acc" data-i="'+esc(x.id)+'">수락</button><button data-a="rej" data-i="'+esc(x.id)+'">거절</button></span></li>'});h+='</ul>'}
+ h+='<div class="join"><div class="w"><label for="fn">친구 회원번호로 운동 초대하기</label><input id="fn" inputmode="numeric" maxlength="6" placeholder="6자리 숫자"></div><button class="save" data-a="inv"'+(BUSY?' disabled':'')+'>초대 보내기</button></div>';
+ h+=crew()+'<button class="ghost" data-a="ref">새로고침</button>'+(ME.host!==UID?'<button class="ghost" data-a="lv">이 방에서 나가기</button>':'');
+ return h+'</section>'}
+function render(){
+ var done=S.days.indexOf(T)>-1,P=picks(),h='',st=streak();
+ h+='<h1 class="brand">헬파티</h1><p class="sub">운동해서 건강하게 맛있는 음식 더 먹자</p>'+M('stamp')+'<div class="top"><div class="big">'+st+'</div><p>일 연속 운동 중</p></div><p class="sub">'+(done?'오늘 스탬프를 찍었어요.':'오늘 운동을 하면 스탬프가 찍혀요.')+'</p>';
+ h+='<p class="sub">이번 달 '+S.days.filter(function(x){return x.slice(0,7)===T.slice(0,7)}).length+'일 운동했어요.</p>'+(done?'':'<button class="go" data-a="tab" data-t="today">오늘의 운동 보러 가기</button>')+M('today')+planHtml()+'<div class="today"><h2>오늘의 운동</h2>';
+ if(!P.length)h+='<p>영상 탭에서 운동기구를 추가해 주세요.</p>';
+ P.forEach(function(x){h+='<div class="pick"><div><b>'+esc(x.n)+'</b><span>'+esc(x.dose||dose(x.p))+'</span>'+(x.tip?'<span class="tp">'+esc(x.tip)+'</span>':'')+'<a href="'+yt(x.n)+'" target="_blank" rel="noopener">사용법 영상</a></div><div class="tag">'+esc(x.p)+'</div></div>'});
+ if(done)h+='<p class="done">오늘 운동 완료!</p>';
+ else if(P.length)h+='<button class="go" data-a="done">운동 완료, 스탬프 찍기</button>'+(S.plan&&S.plan.d===T?'':'<button class="ghost" data-a="shuf">다른 운동으로 바꾸기</button>');
+ h+='</div>';
+ var now=new Date(),y=now.getFullYear(),m=now.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate();
+ h+=M('stamp')+'<section><h2>'+(m+1)+'월 스탬프</h2><div class="cal">';
+ '일월화수목금토'.split('').forEach(function(w){h+='<i>'+w+'</i>'});
+ for(var i=0;i<f;i++)h+='<span></span>';
+ for(var d=1;d<=n;d++){var k=y+'-'+pad(m+1)+'-'+pad(d),c=S.days.indexOf(k)>-1?'on':k===T?'now':'';h+='<div class="'+c+'">'+d+'</div>'}
+ h+='</div></section>';
+ h+=M('record')+recWrap()+M('video')+vidHtml()+M('reco')+recoHtml()+M('main')+quoteHtml()+mainHtml();
+ var pp=h.split('\x01'),o=pp[0];for(var j=1;j<pp.length;j+=2)if(pp[j]===TAB)o+=pp[j+1];
+ document.getElementById('app').innerHTML=o+nav()}
+document.addEventListener('click',function(ev){
+ var an=ev.target.closest('a[data-v]');if(an){var vv=S.vids.filter(function(x){return x.id===an.dataset.v})[0];if(vv){vv.last=T;save();setTimeout(render,50)}return}
+ var b=ev.target.closest('button[data-a]');if(!b)return;var a=b.dataset.a;
+ if(a==='signup'){signUp();return}
+ if(a==='inv'){sendInvite();return}
+ if(a==='acc'||a==='rej'){respond(b.dataset.i,a==='acc');return}
+ if(a==='ref'){loadSocial();return}
+ if(a==='lv'){leaveCrew();return}
+ if(a==='eq'){addEquip(b);return}
+ if(a==='plan'){makeRoutine(b);return}
+ if(a==='rd'){RD=b.dataset.d;DQ='';window.scrollTo(0,0);render();return}
+ if(a==='rb'){RD=null;DQ='';render();return}
+ if(a==='ai'){analyze(b.dataset.d);return}
+ if(a==='sug'){document.getElementById('en').value=b.dataset.n;addEquip(b);return}
+ if(a==='pick'){document.getElementById('ph').click();return}
+ if(a==='tab'){TAB=b.dataset.t;window.scrollTo(0,0);if(TAB==='main'&&ME)loadSocial()}
+ else if(a==='pyes'){var pn=val('pn');if(!pn){alert('운동기구 이름을 입력해 주세요.');return}VP=document.getElementById('pp').value;S.equip.push({n:pn,p:VP,last:'',m:PEND.m,how:PEND.how});PEND=null;PMSG='';S.shuf[T]=0}
+ else if(a==='pno'){PEND=null;PMSG=''}
+ else if(a==='rmode'){RM=b.dataset.m==='1';VQ=''}
+ else if(a==='rs'){RS=b.dataset.s;RD=null}
+ else if(a==='wsave'){var wd=val('wd')||T,wv=parseFloat(val('wv'));if(isNaN(wv)||wv<20||wv>300){alert('체중(kg)을 숫자로 입력해 주세요.');return}if(wd>T)wd=T;S.wt=S.wt.filter(function(e){return e.d!==wd});S.wt.push({d:wd,w:r1(wv)});S.wt.sort(function(p,q){return p.d<q.d?-1:p.d>q.d?1:0});WM=wd.slice(0,7)}
+ else if(a==='wprev'){var pa=WM.split('-').map(Number),pd=new Date(pa[0],pa[1]-2,1);WM=pd.getFullYear()+'-'+pad(pd.getMonth()+1);WQ=''}
+ else if(a==='wnext'){var na=WM.split('-').map(Number),nd2=new Date(na[0],na[1],1),nm=nd2.getFullYear()+'-'+pad(nd2.getMonth()+1);WM=nm>T.slice(0,7)?T.slice(0,7):nm;WQ=''}
+ else if(a==='wdel'){var dd2=b.dataset.d;if(WQ!==dd2)WQ=dd2;else{S.wt=S.wt.filter(function(e){return e.d!==dd2});WQ=''}}
+ else if(a==='vimg'){VIMG=+b.dataset.i;document.getElementById('vf').click();return}
+ else if(a==='vimgx'){var xv=S.vids[+b.dataset.i];if(xv)delete xv.img}
+ else if(a==='rp'){RP=b.dataset.p;VQ=''}
+ else if(a==='vadd'){var u=val('vu');if(u&&u.indexOf('http')!==0)u='https://'+u;
+  if(!ytOk(u)){alert('유튜브 주소(예: https://www.youtube.com/@muscletv111)를 입력해 주세요.');return}
+  if(S.vids.some(function(x){return x.url===u})){alert('이미 목록에 있는 주소예요.');return}
+  S.vids.push({id:'v'+Date.now().toString(36),url:u,title:(val('vt')||ytName(u)).slice(0,40),part:document.getElementById('vq').value,fav:false,last:''})}
+ else if(a==='vfav'){var fv=S.vids[+b.dataset.i];if(fv)fv.fav=!fv.fav}
+ else if(a==='vup'){vmove(+b.dataset.i,-1)}
+ else if(a==='vdn'){vmove(+b.dataset.i,1)}
+ else if(a==='vdel'){var dv=S.vids[+b.dataset.i];if(dv){if(VQ!==dv.id)VQ=dv.id;else{S.vids.splice(+b.dataset.i,1);VQ=''}}}
+ else if(a==='vp'){VP=b.dataset.p}
+ else if(a==='rdel'){var dd=b.dataset.d;if(DQ!==dd){DQ=dd}else{S.inbody=S.inbody.filter(function(r){return r.d!==dd});RD=null;DQ=''}}
+ else if(a==='apply'){var ix=S.inbody.findIndex(function(r){return r.d===b.dataset.d});if(ix>-1){PREF().focus=focusOf(ix).slice();TAB='today';window.scrollTo(0,0)}}
+ else if(a==='foc'){var pf=PREF(),k=pf.focus.indexOf(b.dataset.p);if(k<0)pf.focus.push(b.dataset.p);else pf.focus.splice(k,1)}
+ else if(a==='lvl'){PREF().level=b.dataset.l}
+ else if(a==='done'){var P=picks();S.log[T]=P.map(function(x){return x.n});S.equip.forEach(function(e){if(S.log[T].indexOf(e.n)>-1)e.last=T});if(S.days.indexOf(T)<0)S.days.push(T)}
+ else if(a==='shuf'){S.shuf[T]=(S.shuf[T]||0)+1}
+ else if(a==='ib'){var w=parseFloat(val('w')),m=parseFloat(val('m')),f=parseFloat(val('f'));if(isNaN(w)||isNaN(m)||isNaN(f)){alert('체중, 골격근량, 체지방률을 모두 입력해 주세요.');return}
+  var bd=val('bd')||T;if(bd>T)bd=T;S.inbody=S.inbody.filter(function(r){return r.d!==bd});S.inbody.push({d:bd,w:w,m:m,f:f});sortIb();RD=bd;DQ=''}
+ else if(a==='rm'){S.equip.splice(+b.dataset.i,1)}
+ save();pushMe();render()});
+render();
+document.addEventListener('change',function(ev){var t=ev.target;
+ if(t.id==='ph'&&t.files&&t.files[0]){var f=t.files[0];t.value='';fromPhoto(f);return}
+ var id=t.dataset&&(t.dataset.vt||t.dataset.vq);if(!id)return;
+ var v=S.vids.filter(function(x){return x.id===id})[0];if(!v)return;
+ if(t.dataset.vt)v.title=t.value.trim().slice(0,40)||v.title;
+ else{v.part=t.value;render()}
+ save()});
+document.addEventListener('change',function(ev){var t=ev.target;if(t.id!=='vf'||!t.files||!t.files[0])return;var f=t.files[0],i=VIMG;t.value='';shrinkURL(f,360).then(function(u){if(S.vids[i]){S.vids[i].img=u;save();render()}}).catch(function(){alert('이미지를 불러오지 못했어요.')})});
+initSocial();
+</script>
+</body>
+</html>
