@@ -1,7 +1,7 @@
 {
   "name": "헬파티",
   "short_name": "헬파티",
-  "description": "다이어트 코칭 기록 — 잠금된 페이지",
+  "description": "운동 기록과 다이어트 코칭 — 헬파티",
   "lang": "ko",
   "dir": "ltr",
   "start_url": "./",
